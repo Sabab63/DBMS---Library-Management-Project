@@ -1,13 +1,45 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../CSS/LibraryLogin.css";
+
 
 function LibraryLoginPage() {
     const [message, setMessage] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-    function handleSubmit(event) {
+    async function handleLogin(event) {
         event.preventDefault();
-        setMessage("Sign-in is not connected yet.");
+        try {
+            
+            const formData = new URLSearchParams();
+
+            formData.append("username", username);
+            formData.append("password", password);
+
+            const response = await fetch("http://127.0.0.1:8000/token", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.detail || "Login failed");
+            }
+
+            
+            localStorage.setItem("access_token", data.access_token);
+            setMessage("Login successful!");
+            navigate("/");
+
+        } catch (error) {
+            setMessage(error.message);
+        }
     }
 
     return (
@@ -19,12 +51,13 @@ function LibraryLoginPage() {
                 <h1 id="library-login-title">Welcome back</h1>
                 <p className="library-login-intro">Sign in to your library account.</p>
 
-                <form className="library-login-form" onSubmit={handleSubmit}>
+                <form className="library-login-form" onSubmit={handleLogin}>
                     <label htmlFor="library-username">Library ID</label>
                     <input
-                        id="library-username"
-                        name="username"
                         type="text"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         autoComplete="username"
                         required
                     />
@@ -32,8 +65,10 @@ function LibraryLoginPage() {
                     <label htmlFor="library-password">Password</label>
                     <input
                         id="library-password"
-                        name="password"
                         type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         autoComplete="current-password"
                         required
                     />

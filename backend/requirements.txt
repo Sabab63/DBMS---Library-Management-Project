@@ -1,4 +1,8 @@
 fastapi
-pymysql
 uvicorn[standard]
 mysql-connector-python
+pydantic
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+pymysql

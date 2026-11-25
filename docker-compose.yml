@@ -10,7 +10,7 @@ services:
       MYSQL_USER: library_user
       MYSQL_PASSWORD: library123
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -36,13 +36,9 @@ services:
     container_name: library_frontend
     restart: always
     ports:
-    - "8080:80"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - "8081:80"
     depends_on:
       - backend
 
 volumes:
   mysql_data:
-

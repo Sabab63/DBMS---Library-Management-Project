@@ -2,6 +2,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LibraryLoginPage from "./pages/LibraryLoginPage";
+import BooksPage from "./pages/BooksPage";
 
 function App() {
     return (
@@ -9,6 +10,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LibraryLoginPage />} />
+                <Route path="/books" element={<BooksPage />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </BrowserRouter>

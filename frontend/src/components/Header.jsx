@@ -1,5 +1,6 @@
 
 import "../CSS/Header.css";
+import { Link } from "react-router-dom";
 import AccountMenu from "./AccountMenu";
 
 function Header() {
@@ -7,9 +8,9 @@ function Header() {
         <header className="header">
             <div className="header-container">
 
-                <div className="logo">
+                <Link className="logo" to="/" aria-label="Return to books">
                     MyWebsite
-                </div>
+                </Link>
 
                 <AccountMenu />
 

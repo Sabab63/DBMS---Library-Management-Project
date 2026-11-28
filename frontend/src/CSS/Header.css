@@ -27,5 +27,17 @@
     font-size: 24px;
     font-weight: 700;
     color: #075985;
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .header-container {
+        padding: 14px 16px;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
 }
 
